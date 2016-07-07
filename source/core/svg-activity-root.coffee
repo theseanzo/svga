@@ -67,8 +67,7 @@ Take ["defaultElement", "PureDom","FlowArrows", "SVGControlPanel","SVGTransform"
             scope.root._controlPanel = new SVGControlPanel(scope.root, scope.root.controlPanel)
             scope.root._controlPanel.setup?()
           setupInstance(scope.root)
-          if scope.root.controlPanel?
-            scope.root._controlPanel.schematicToggle.schematicMode()
+          scope.root._controlPanel?.schematicToggle?.schematicMode?()
 
         getRootElement: ()->
           return scope.root.getRootElement()
