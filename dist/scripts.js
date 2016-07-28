@@ -235,7 +235,8 @@
 
   Take(["PointerInput", "Global"], function(PointerInput, Global) {
     return Make("SVGAnimate", function(toggle, svgControlPanel, mainStage) {
-      var scope;
+      var active, scope;
+      active = false;
       return scope = {
         setup: function() {
           PointerInput.addClick(toggle.animateSelected.getElement(), function() {
@@ -246,8 +247,8 @@
           });
         },
         setMode: function(animate) {
-          if (Global.animateMode !== animate) {
-            Global.animateMode = animate;
+          if (active !== animate) {
+            active = animate;
             toggle.animateSelected.style.show(animate);
             toggle.schematicSelected.style.show(!animate);
             if (animate) {
@@ -1254,7 +1255,7 @@
     var global, internal, readWrite;
     Make("Global", global = {});
     internal = {};
-    readWrite = function(name, initial) {
+    return readWrite = function(name, initial) {
       internal[name] = initial;
       return Object.defineProperty(global, name, {
         get: function() {
@@ -1265,16 +1266,6 @@
         }
       });
     };
-    readWrite("animateMode", false);
-    Object.defineProperty(global, "schematicMode", {
-      get: function() {
-        return !internal.animateMode;
-      },
-      set: function(val) {
-        return internal.animateMode = !val;
-      }
-    });
-    return readWrite("enableHydraulicLines");
   });
 
   (function() {
@@ -1473,7 +1464,7 @@
           return scope.instances[instanceName] = instance;
         },
         setupDocument: function(activityName, contentDocument) {
-          var base, child, childElements, defs, k, len;
+          var base, child, childElements, defs, k, len, ref, ref1;
           scope.registerInstance("default", defaultElement);
           scope.root = scope.instances["root"](contentDocument);
           scope.root.FlowArrows = new FlowArrows();
@@ -1499,9 +1490,7 @@
             }
           }
           setupInstance(scope.root);
-          if (scope.root.controlPanel != null) {
-            return scope.root._controlPanel.schematicToggle.schematicMode();
-          }
+          return (ref = scope.root._controlPanel) != null ? (ref1 = ref.schematicToggle) != null ? typeof ref1.schematicMode === "function" ? ref1.schematicMode() : void 0 : void 0 : void 0;
         },
         getRootElement: function() {
           return scope.root.getRootElement();
@@ -1720,7 +1709,7 @@
             alpha = 1.0;
           }
           scope.pressure = val;
-          if (scope.isLine && Global.enableHydraulicLines) {
+          if (scope.isLine) {
             return scope.stroke(HydraulicPressure(scope.pressure, alpha));
           } else {
             return scope.fill(HydraulicPressure(scope.pressure, alpha));
