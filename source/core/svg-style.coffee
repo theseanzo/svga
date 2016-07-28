@@ -20,7 +20,7 @@ Take ["PureDom", "HydraulicPressure", "Global"], (PureDom, HydraulicPressure, Gl
       
       setPressure: (val, alpha=1.0)->
         scope.pressure = val
-        if scope.isLine and Global.enableHydraulicLines
+        if scope.isLine# and Global.enableHydraulicLines
           scope.stroke HydraulicPressure scope.pressure, alpha
         else
           scope.fill HydraulicPressure scope.pressure, alpha

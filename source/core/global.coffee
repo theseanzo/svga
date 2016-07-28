@@ -10,10 +10,10 @@ Take [], ()->
   
   #################################################################################################
   
-  readWrite "animateMode", false
-  
-  Object.defineProperty global, "schematicMode",
-    get: ()->   !internal.animateMode
-    set: (val)-> internal.animateMode = !val
-  
-  readWrite "enableHydraulicLines"
+  # readWrite "animateMode", false
+  #
+  # Object.defineProperty global, "schematicMode",
+  #   get: ()->   !internal.animateMode
+  #   set: (val)-> internal.animateMode = !val
+  #
+  # readWrite "enableHydraulicLines"
